@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
+const styles = {
+  card: {
+    minWidth: 275,
+  },
+};
+
 export default withAuth(class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -39,27 +50,42 @@ export default withAuth(class LoginForm extends Component {
   }
 
   render() {
+
     if (this.state.sessionToken) {
       this.props.auth.redirect({sessionToken: this.state.sessionToken});
       return null;
     }
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Username:
-          <input
-            id="username" type="text"
-            value={this.state.username}
-            onChange={this.handleUsernameChange} />
-          Password:
-          <input
-            id="password" type="password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange} />
-        </label>
-        <input id="submit" type="submit" value="Submit" />
-      </form>
+      <Card style={styles.card}>
+        <CardContent>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <TextField
+                id="username"
+                label="Username"
+                value={this.state.username}
+                onChange={this.handleUsernameChange}
+                margin="normal"
+                />
+            </div>
+            <div>
+              <TextField
+                id="password"
+                label="Password"
+                value={this.state.password}
+                onChange={this.handlePasswordChange}
+                margin="normal"
+                />
+            </div>
+            <div>
+              <Button type="submit" variant="contained" color="primary">
+                LogIn
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     );
   }
 });

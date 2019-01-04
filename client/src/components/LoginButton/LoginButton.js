@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
+import { connect } from 'react-redux';
+import { resetAuthData } from '../../actions/authActions';
 
-export default withAuth(class LoginButton extends Component {
+import Button from '@material-ui/core/Button';
+
+class LoginButton extends Component {
   constructor(props) {
     super(props);
     this.state = { authenticated: null };
@@ -25,8 +29,18 @@ export default withAuth(class LoginButton extends Component {
     if (this.state.authenticated === null) return null;
 
     const button = this.state.authenticated ?
-      <button onClick={() => this.props.auth.logout()}>Logout</button> :
-      <button onClick={() => this.props.auth.login()}>Login</button>
+      <Button
+        onClick={() => {
+          this.props.auth.logout()
+          this.props.resetAuthData()
+        }}
+        variant="contained"
+        color="primary">
+        Logout
+      </Button> :
+      <Button onClick={() => this.props.auth.login()} variant="contained" color="primary">
+        Login
+      </Button>
 
     return (
       <div>
@@ -34,4 +48,10 @@ export default withAuth(class LoginButton extends Component {
       </div>
     );
   }
+};
+
+const mapStateToProps = (state) => ({
+  globalAuth: state.auth
 });
+
+export default connect(mapStateToProps, { resetAuthData })(withAuth(LoginButton));
