@@ -25,16 +25,13 @@ class MainMenu extends Component {
     return(
       <div className="mainMenu">
         {
-          isLoggedIn ? (
+          isLoggedIn && (
             menus.map((menu, idx)=>{
             let menuId = `m-${idx}`;
             return(
               <ButtonMenu key={menuId} label={menu.label} options={menu.options} className="mainMenu__item" />
             )})
-          ) : (
-            <div>Not Logged In</div>
-          )
-
+          ) 
         }
       </div>
     )
