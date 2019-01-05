@@ -31,9 +31,12 @@ class AddCommentDialog extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    const { authData: { email = "", name = "" } } = this.props.globalAuth;
+    console.log('AddComment', email, name);
     const newComment = {
       ticketId: this.props.ticket,
-      description: this.state.description
+      description: this.state.description,
+      author: { email, name }
     }
     this.props.addComment(newComment);
   }
@@ -56,18 +59,14 @@ class AddCommentDialog extends Component {
           onClose={this.handleClick.bind(this, "close")}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Create</DialogTitle>
+          <DialogTitle id="form-dialog-title">Add a comment</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send
-              updates occasionally.
-            </DialogContentText>
             <form noValidate autoComplete="off"  onSubmit={(e) => this.onSubmit(e)}>
             <TextField
               autoFocus
               margin="dense"
               id="description"
-              label="Description"
+              label="Your Comment"
               type="text"
               name="description"
               fullWidth
@@ -101,7 +100,8 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-  comment: state.comment
+  comment: state.comment,
+  globalAuth: state.auth
 });
 
 export default connect(mapStateToProps, { addComment })(withStyles(styles)(AddCommentDialog));

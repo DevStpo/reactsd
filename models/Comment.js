@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // Create Schema
 const CommentSchema = new Schema({
   date: Date,
-  author: String,
+  author: Object,
   description: String,
 });
 

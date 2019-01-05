@@ -101,12 +101,13 @@ class Ticket extends Component {
           <AddCommentDialog ticket={id} />
           <List>
           {comments.map(comment => {
+            const date = new Date(comment.date);
             return (
               <ListItem key={comment._id}>
                 <Avatar>
                   <ImageIcon />
                 </Avatar>
-                <ListItemText primary={`${comment.author} - ${comment.date}`} secondary={comment.description} />
+                <ListItemText primary={`${comment.author.name} - ${date.toLocaleString()}`} secondary={comment.description} />
               </ListItem>
             );
           })}

@@ -11,7 +11,6 @@ class MainMenu extends Component {
 
     const menus = MAIN_MENU;
     const { authData: {name = ""}, isLoggedIn } = this.props.globalAuth;
-    console.log(name);
     const menusToRender = menus.map((menu, idx)=>{
     let menuId = `m-${idx}`;
     return(

@@ -10,7 +10,7 @@ const Comment = require('../../models/comment');
 router.post('/:ticketId', (req, res) => {
   const newComment = new Comment({
     date: Date.now(),
-    author: 'Lorena',
+    author: req.body.author,
     description: req.body.description,
     ticket: req.params.ticketId
   });
