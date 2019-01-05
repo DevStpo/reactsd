@@ -17,7 +17,9 @@ class Login extends Component {
     const authenticated = await this.props.auth.isAuthenticated();
     if (authenticated !== this.state.authenticated) {
       let that = this;
-      this.props.auth.getUser().then(user=>that.props.setAuthData(user));
+      this.props.auth.getUser().then(user=>{
+        if(user) { that.props.setAuthData(user) }
+      })
       this.setState({ authenticated });
     }
   }

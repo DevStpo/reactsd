@@ -73,6 +73,7 @@ export default withAuth(class LoginForm extends Component {
               <TextField
                 id="password"
                 label="Password"
+                type="password"
                 value={this.state.password}
                 onChange={this.handlePasswordChange}
                 margin="normal"
