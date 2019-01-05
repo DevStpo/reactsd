@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import { connect } from 'react-redux';
 import { resetAuthData } from '../../actions/authActions';
 
+import withReducedStateAuth from '../withReducedStateAuth/withReducedStateAuth';
 import Button from '@material-ui/core/Button';
 
 class LoginButton extends Component {
@@ -50,8 +50,4 @@ class LoginButton extends Component {
   }
 };
 
-const mapStateToProps = (state) => ({
-  globalAuth: state.auth
-});
-
-export default connect(mapStateToProps, { resetAuthData })(withAuth(LoginButton));
+export default withReducedStateAuth(withAuth(LoginButton));

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { setAuthData } from '../../actions/authActions';
 import { withAuth } from '@okta/okta-react';
 
+import withReducedStateAuth from '../withReducedStateAuth/withReducedStateAuth';
 import LoginForm from '../LoginForm/LoginForm';
 
 class Login extends Component {
@@ -35,8 +34,4 @@ class Login extends Component {
   }
 };
 
-const mapStateToProps = (state) => ({
-  globalAuth: state.auth
-});
-
-export default connect(mapStateToProps, { setAuthData })(withAuth(Login));
+export default withReducedStateAuth(withAuth(Login));

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { MAIN_MENU } from '../mainMenu';
+import React, { Component } from 'react';
 
 import ButtonMenu from '../ButtonMenu/ButtonMenu';
+import withReducedStateAuth from '../withReducedStateAuth/withReducedStateAuth';
+
 import './mainMenu.css';
 
 
@@ -31,15 +32,11 @@ class MainMenu extends Component {
             return(
               <ButtonMenu key={menuId} label={menu.label} options={menu.options} className="mainMenu__item" />
             )})
-          ) 
+          )
         }
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  globalAuth: state.auth
-});
-
-export default connect(mapStateToProps, {})(MainMenu);
+export default withReducedStateAuth(MainMenu);
